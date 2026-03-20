@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALCHIMI'SAVEURS — Foodtruck Artisanal aux Saveurs Gourmandes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & VARIABLES ──────────────────────────── */
+:root {
+  --red:        #9B2020;
+  --red-dark:   #6B1313;
+  --orange:     #D4581A;
+  --gold:       #E8A020;
+  --cream:      #FEF5E7;
+  --cream-dark: #F5E6C8;
+  --brown:      #3A1F0D;
+  --charcoal:   #2A1A0D;
+  --white:      #FFFDF8;
+  --text:       #3A1F0D;
+  --muted:      #8A6A4A;
+  --nav-h:      70px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  height: var(--nav-h);
+  background: rgba(42, 26, 13, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--orange);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-style: italic; font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+.nav-logo span {
+  color: rgba(255,245,231,0.5);
+  font-style: normal; font-weight: 400;
+  font-size: 0.62rem;
+  display: block;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: 'Barlow', sans-serif;
+}
+
+/* Desktop links */
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  color: var(--cream-dark);
+  text-decoration: none;
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 38px; height: 38px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--cream-dark);
+  transition: all 0.3s;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed; top: var(--nav-h); left: 0; right: 0;
+  background: rgba(42,26,13,0.98);
+  backdrop-filter: blur(10px);
+  padding: 24px 5vw 32px;
+  border-bottom: 2px solid var(--orange);
+  z-index: 199;
+  transform: translateY(-10px); opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-drawer.open { transform: translateY(0); opacity: 1; }
+.nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.nav-drawer a {
+  display: block; padding: 14px 0;
+  color: var(--cream-dark);
+  text-decoration: none;
+  font-size: 1rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,245,231,0.08);
+  transition: color 0.2s;
+}
+.nav-drawer a:hover { color: var(--gold); }
+
+/* ─── HERO ────────────────────────────────────────── */
+#hero {
+  min-height: 100svh;
+  background: var(--charcoal);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: calc(var(--nav-h) + 40px) 8vw 60px;
+  position: relative;
+  overflow: hidden;
+  gap: 40px;
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 70% 50%, rgba(212,88,26,0.18) 0%, transparent 60%),
+    radial-gradient(circle at 15% 80%, rgba(155,32,32,0.15) 0%, transparent 50%);
+}
+.hero-texture {
+  position: absolute; inset: 0; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+.hero-left { position: relative; z-index: 2; }
+.hero-eyebrow {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--orange);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 30px; height: 2px; background: var(--orange); flex-shrink: 0; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  font-weight: 900; line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+  word-break: break-word;
+}
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--cream-dark); opacity: 0.65;
+  margin-bottom: 1.4rem;
+  line-height: 1.3;
+}
+.hero-desc {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  font-weight: 300; color: rgba(255,245,231,0.6);
+  line-height: 1.8; max-width: 420px; margin-bottom: 2rem;
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-primary {
+  display: inline-block;
+  background: var(--red); color: var(--white);
+  padding: 14px 32px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  text-decoration: none; border: 2px solid var(--red);
+  transition: all 0.25s; white-space: nowrap;
+}
+.btn-primary:hover { background: transparent; color: var(--red); }
+.btn-secondary {
+  display: inline-block;
+  background: transparent; color: var(--cream-dark);
+  padding: 14px 32px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  text-decoration: none; border: 2px solid rgba(255,245,231,0.25);
+  transition: all 0.25s; white-space: nowrap;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-right {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.hero-truck-wrap { animation: float 4s ease-in-out infinite; width: 100%; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+.hero-truck-placeholder {
+  width: 100%; max-width: 520px; margin: 0 auto;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--red-dark) 0%, var(--orange) 60%, var(--gold) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(4rem, 8vw, 6rem);
+  position: relative; overflow: hidden;
+}
+.hero-truck-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 12px);
+}
+.hero-badges {
+  display: flex; gap: 10px; margin-top: 16px;
+  flex-wrap: wrap; justify-content: center;
+}
+.badge {
+  background: rgba(255,245,231,0.07);
+  border: 1px solid rgba(255,245,231,0.15);
+  color: var(--cream-dark);
+  padding: 7px 14px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ─── FEATURED STRIP ──────────────────────────────── */
+#featured {
+  background: var(--red-dark);
+  padding: 50px 8vw;
+}
+.featured-title {
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px;
+}
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.featured-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,245,231,0.1);
+  padding: 22px 16px; text-align: center;
+  transition: transform 0.2s, background 0.2s; cursor: default;
+}
+.featured-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
+.featured-card-emoji { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 8px; display: block; }
+.featured-card-price {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 5px;
+}
+.featured-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem); font-weight: 700; font-style: italic;
+  color: var(--white);
+}
+
+/* ─── SECTION HEADERS ─────────────────────────────── */
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-eyebrow {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 10px; display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.15;
+  color: var(--charcoal);
+}
+.section-title em { color: var(--red); font-style: italic; }
+.section-desc {
+  margin-top: 14px; max-width: 560px;
+  margin-left: auto; margin-right: auto;
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  font-weight: 300; color: var(--muted); line-height: 1.8;
+}
+.divider {
+  width: 55px; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  margin: 16px auto 0;
+}
+
+/* ─── MENU ────────────────────────────────────────── */
+#menu { padding: 80px 8vw; background: var(--white); }
+.menu-tabs-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+.menu-tabs {
+  display: flex; width: max-content;
+  margin: 0 auto 50px;
+  border: 2px solid var(--cream-dark);
+}
+.menu-tab {
+  padding: 11px 22px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); background: transparent;
+  border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.menu-tab.active { background: var(--red); color: var(--white); }
+.menu-tab:hover:not(.active) { background: var(--cream-dark); color: var(--text); }
+.menu-category { display: none; }
+.menu-category.active {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.menu-item {
+  border: 1px solid var(--cream-dark);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: var(--white);
+}
+.menu-item:hover { box-shadow: 0 8px 30px rgba(58,31,13,0.12); transform: translateY(-3px); }
+.menu-item-img {
+  height: 160px;
+  background: linear-gradient(135deg, var(--cream-dark), var(--cream));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+}
+.menu-item-body { padding: 16px 18px; }
+.menu-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 5px;
+}
+.menu-item-desc {
+  font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 12px;
+}
+.menu-item-footer { display: flex; justify-content: space-between; align-items: center; }
+.menu-item-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.35rem; font-weight: 800; color: var(--red);
+}
+.menu-item-tag {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--cream-dark); color: var(--muted); padding: 4px 9px;
+}
+
+/* ─── EVENTS ──────────────────────────────────────── */
+#events { padding: 80px 8vw; background: var(--cream); }
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.event-card {
+  display: flex; gap: 20px;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  padding: 22px 24px;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.event-card:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(58,31,13,0.1); }
+.event-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(to bottom, var(--red), var(--orange));
+}
+.event-date-block {
+  flex-shrink: 0;
+  background: var(--red); color: var(--white);
+  width: 60px; height: 60px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+}
+.event-date-day {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.8rem; font-weight: 900; line-height: 1;
+}
+.event-date-month {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; opacity: 0.85;
+}
+.event-info { flex: 1; min-width: 0; }
+.event-range {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 5px;
+}
+.event-location {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 700;
+  color: var(--text); margin-bottom: 7px;
+  word-break: break-word;
+}
+.event-details { display: flex; gap: 14px; flex-wrap: wrap; }
+.event-detail {
+  font-size: 0.8rem; color: var(--muted);
+  display: flex; align-items: center; gap: 5px;
+}
+.event-detail strong { color: var(--text); }
+
+/* ─── ABOUT ───────────────────────────────────────── */
+#about {
+  padding: 80px 8vw;
+  background: var(--charcoal);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+}
+.about-img {
+  aspect-ratio: 4/5;
+  background: linear-gradient(145deg, var(--red-dark) 0%, var(--orange) 50%, var(--gold) 100%);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(5rem, 10vw, 8rem);
+  overflow: hidden;
+}
+.about-img::after {
+  content: ''; position: absolute;
+  inset: 12px; border: 2px solid rgba(232,160,32,0.3);
+}
+.about-content .section-header { text-align: left; margin-bottom: 24px; }
+.about-content .section-title { color: var(--white); }
+.about-content .section-eyebrow { color: var(--gold); }
+.about-content .divider { margin: 16px 0 0; }
+.about-content p {
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  font-weight: 300; color: rgba(255,245,231,0.6);
+  line-height: 1.9; margin-bottom: 16px;
+}
+.about-stats { display: flex; gap: 30px; margin-top: 32px; flex-wrap: wrap; }
+.stat-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900;
+  color: var(--gold); line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,245,231,0.45); margin-top: 4px;
+}
+
+/* ─── CONTACT ─────────────────────────────────────── */
+#contact {
+  padding: 80px 8vw;
+  background: var(--cream);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: start;
+}
+.contact-info .section-header { text-align: left; margin-bottom: 32px; }
+.contact-items { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+.contact-item { display: flex; gap: 16px; align-items: flex-start; }
+.contact-icon {
+  width: 42px; height: 42px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.contact-item-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 3px;
+}
+.contact-item-value { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-field label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted);
+}
+.form-field input, .form-field textarea {
+  border: 2px solid var(--cream-dark); background: var(--white);
+  padding: 11px 14px;
+  font-family: 'Barlow', sans-serif; font-size: 0.93rem; color: var(--text);
+  outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none; border-radius: 0;
+}
+.form-field input:focus, .form-field textarea:focus { border-color: var(--red); }
+.form-field textarea { resize: vertical; min-height: 110px; }
+.btn-submit {
+  background: var(--red); color: var(--white);
+  border: 2px solid var(--red);
+  padding: 13px 32px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; width: fit-content; transition: all 0.2s;
+  -webkit-appearance: none; border-radius: 0;
+}
+.btn-submit:hover { background: transparent; color: var(--red); }
+
+/* ─── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--brown);
+  padding: 44px 8vw 28px;
+}
+.footer-top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,245,231,0.1);
+  margin-bottom: 24px;
+  flex-wrap: wrap; gap: 24px;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-style: italic; font-weight: 900; color: var(--gold);
+}
+.footer-logo span {
+  display: block; font-style: normal;
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  color: rgba(255,245,231,0.35); font-weight: 600; text-transform: uppercase;
+}
+.footer-tagline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--white);
+}
+.footer-tagline em { color: var(--orange); font-style: normal; }
+.footer-socials { display: flex; gap: 10px; }
+.social-btn {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(255,245,231,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; text-decoration: none;
+  color: rgba(255,245,231,0.45); transition: all 0.2s;
+}
+.social-btn:hover { border-color: var(--gold); color: var(--gold); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+.footer-copy { font-size: 0.76rem; color: rgba(255,245,231,0.28); }
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links a {
+  font-size: 0.74rem; color: rgba(255,245,231,0.3);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+/* ─── REVEAL ANIMATION ────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — TABLETTE (≤ 900px)
+═══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-drawer { display: block; }
+
+  #hero {
+    grid-template-columns: 1fr;
+    padding: calc(var(--nav-h) + 30px) 6vw 50px;
+    text-align: center;
+  }
+  .hero-eyebrow { justify-content: center; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-ctas { justify-content: center; }
+  .hero-right { margin-top: 10px; }
+
+  .featured-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .events-grid { grid-template-columns: 1fr; }
+
+  #about {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-img { aspect-ratio: 16/7; max-height: 260px; }
+
+  #contact {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .footer-top { flex-direction: column; align-items: flex-start; gap: 18px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 580px)
+═══════════════════════════════════════════════════ */
+@media (max-width: 580px) {
+  :root { --nav-h: 62px; }
+
+  #hero {
+    padding: calc(var(--nav-h) + 24px) 5vw 40px;
+    gap: 24px;
+  }
+  .hero-title { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+
+  #featured { padding: 40px 5vw; }
+  .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .featured-card { padding: 16px 10px; }
+
+  #menu { padding: 60px 5vw; }
+  .menu-tabs { margin-bottom: 30px; }
+  .menu-tab { padding: 10px 14px; font-size: 0.7rem; }
+  .menu-category.active { grid-template-columns: 1fr; }
+
+  #events { padding: 60px 5vw; }
+  .event-card { padding: 16px 18px; gap: 14px; }
+
+  #about { padding: 60px 5vw; }
+  .about-stats { gap: 20px; }
+
+  #contact { padding: 60px 5vw; }
+  .form-row { grid-template-columns: 1fr; }
+
+  footer { padding: 36px 5vw 22px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .footer-links { gap: 14px; }
+
+  .btn-primary, .btn-secondary {
+    width: 100%; text-align: center;
+    padding: 14px 20px;
+  }
+  .hero-ctas { flex-direction: column; }
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — PETIT MOBILE (≤ 380px)
+═══════════════════════════════════════════════════ */
+@media (max-width: 380px) {
+  .hero-title { font-size: 2.1rem; }
+  .featured-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">
+    Alchimi'Saveurs
+    <span>Foodtruck artisanal aux saveurs gourmandes</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero">Accueil</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#events">Événements</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="nav-drawer" id="navDrawer">
+  <ul>
+    <li><a href="#hero" class="drawer-link">Accueil</a></li>
+    <li><a href="#menu" class="drawer-link">Menu</a></li>
+    <li><a href="#events" class="drawer-link">Événements</a></li>
+    <li><a href="#about" class="drawer-link">À propos</a></li>
+    <li><a href="#contact" class="drawer-link">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Foodtruck Artisanal</div>
+    <h1 class="hero-title"><em>Alchimi'</em><br>Saveurs</h1>
+    <p class="hero-subtitle">Pizzas · Panuozzos · Apéro · Desserts</p>
+    <p class="hero-desc">Des saveurs gourmandes façonnées à la main, cuites au feu de bois. On transforme des produits simples en expériences inoubliables — c'est notre alchimie.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">Voir le menu</a>
+      <a href="#events" class="btn-secondary">Nos prochaines dates</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-truck-wrap">
+      <div class="hero-truck-placeholder">🚚</div>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">🔥 Four à bois</span>
+      <span class="badge">🌾 Pâtes maison</span>
+      <span class="badge">🧑‍🍳 Recettes originales</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED STRIP ────────────────────────────── -->
+<section id="featured">
+  <p class="featured-title">✦ Nos incontournables ✦</p>
+  <div class="featured-grid">
+    <div class="featured-card">
+      <span class="featured-card-emoji">🍕</span>
+      <p class="featured-card-price">À partir de 9€</p>
+      <p class="featured-card-name">Pizza Napolitaine</p>
+    </div>
+    <div class="featured-card">
+      <span class="featured-card-emoji">🥖</span>
+      <p class="featured-card-price">À partir de 8€</p>
+      <p class="featured-card-name">Panuozzo Grillé</p>
+    </div>
+    <div class="featured-card">
+      <span class="featured-card-emoji">🧀</span>
+      <p class="featured-card-price">À partir de 12€</p>
+      <p class="featured-card-name">Planche Apéro</p>
+    </div>
+    <div class="featured-card">
+      <span class="featured-card-emoji">🍮</span>
+      <p class="featured-card-price">À partir de 4€</p>
+      <p class="featured-card-name">Dessert du moment</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MENU ──────────────────────────────────────── -->
+<section id="menu">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Nos créations</span>
+    <h2 class="section-title">La <em>Carte</em></h2>
+    <p class="section-desc">Tout est fait maison, avec des producteurs locaux. La carte évolue au fil des saisons et de nos envies gourmandes.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="menu-tabs-wrap">
+    <div class="menu-tabs">
+      <button class="menu-tab active" data-cat="pizza">🍕 Pizzas</button>
+      <button class="menu-tab" data-cat="panuozzo">🥖 Panuozzos</button>
+      <button class="menu-tab" data-cat="apero">🧀 Apéro</button>
+      <button class="menu-tab" data-cat="desserts">🍮 Desserts</button>
+      <button class="menu-tab" data-cat="boissons">🥤 Boissons</button>
+    </div>
+  </div>
+
+  <div class="menu-category active" id="cat-pizza">
+    <div class="menu-item">
+      <div class="menu-item-img">🍕</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Margherita Classica</p>
+        <p class="menu-item-desc">Tomate San Marzano, fior di latte, basilic frais, huile d'olive</p>
+        <div class="menu-item-footer"><span class="menu-item-price">9 €</span><span class="menu-item-tag">Végétarien</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🥩</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Spianata Piccante</p>
+        <p class="menu-item-desc">Tomate, mozzarella, spianata calabrese, piment doux, roquette</p>
+        <div class="menu-item-footer"><span class="menu-item-price">12 €</span><span class="menu-item-tag">Signature</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🧅</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Bianca ai Funghi</p>
+        <p class="menu-item-desc">Crème truffe, mozzarella, champignons de Paris, oignon confit</p>
+        <div class="menu-item-footer"><span class="menu-item-price">13 €</span><span class="menu-item-tag">Végétarien</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🐄</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Quattro Formaggi</p>
+        <p class="menu-item-desc">Mozzarella, gorgonzola, taleggio, grana padano, miel de châtaigne</p>
+        <div class="menu-item-footer"><span class="menu-item-price">13 €</span><span class="menu-item-tag">Incontournable</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category" id="cat-panuozzo">
+    <div class="menu-item">
+      <div class="menu-item-img">🥖</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Panuozzo Classico</p>
+        <p class="menu-item-desc">Jambon cuit, mozzarella, tomate fraîche, basilic</p>
+        <div class="menu-item-footer"><span class="menu-item-price">8 €</span><span class="menu-item-tag">Bestseller</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🌶️</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Panuozzo Piccante</p>
+        <p class="menu-item-desc">Salami piquant, provola fumée, poivron rôti, mayo maison</p>
+        <div class="menu-item-footer"><span class="menu-item-price">10 €</span><span class="menu-item-tag">Épicé</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🥦</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Panuozzo Verdure</p>
+        <p class="menu-item-desc">Légumes grillés, ricotta, pesto maison, roquette</p>
+        <div class="menu-item-footer"><span class="menu-item-price">9 €</span><span class="menu-item-tag">Végétarien</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🍖</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Panuozzo Porchetta</p>
+        <p class="menu-item-desc">Porchetta rôtie, scamorza, oignons confits, sauce verte</p>
+        <div class="menu-item-footer"><span class="menu-item-price">11 €</span><span class="menu-item-tag">Signature</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category" id="cat-apero">
+    <div class="menu-item">
+      <div class="menu-item-img">🧀</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Planche Fromagère</p>
+        <p class="menu-item-desc">Sélection de 3 fromages, confiture de figues, pain grillé, noix</p>
+        <div class="menu-item-footer"><span class="menu-item-price">12 €</span><span class="menu-item-tag">Partage</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🥩</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Planche Charcuterie</p>
+        <p class="menu-item-desc">Bresaola, coppa, speck, olives marinées, bruschetta</p>
+        <div class="menu-item-footer"><span class="menu-item-price">13 €</span><span class="menu-item-tag">Partage</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🫙</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Planche Mixte</p>
+        <p class="menu-item-desc">Le meilleur des deux mondes — fromages + charcuterie + pickles maison</p>
+        <div class="menu-item-footer"><span class="menu-item-price">18 €</span><span class="menu-item-tag">Pour 2</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🫒</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Antipasti Maison</p>
+        <p class="menu-item-desc">Tomates confites, olives, artichauts, aubergines marinées</p>
+        <div class="menu-item-footer"><span class="menu-item-price">8 €</span><span class="menu-item-tag">Végétarien</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category" id="cat-desserts">
+    <div class="menu-item">
+      <div class="menu-item-img">🍮</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Tiramisu Maison</p>
+        <p class="menu-item-desc">Recette traditionnelle, mascarpone, café espresso, cacao</p>
+        <div class="menu-item-footer"><span class="menu-item-price">5 €</span><span class="menu-item-tag">Signature</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🍫</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Pizza Dessert Nutella</p>
+        <p class="menu-item-desc">Pâte maison, Nutella, noisettes concassées, sucre glace</p>
+        <div class="menu-item-footer"><span class="menu-item-price">6 €</span><span class="menu-item-tag">Gourmand</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🍨</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Gelato Artisanal</p>
+        <p class="menu-item-desc">2 boules : pistache / citron / stracciatella / fruits rouges</p>
+        <div class="menu-item-footer"><span class="menu-item-price">4 €</span><span class="menu-item-tag">Local</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🍓</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Panna Cotta</p>
+        <p class="menu-item-desc">Crème vanille maison, coulis de fraises fraîches</p>
+        <div class="menu-item-footer"><span class="menu-item-price">4 €</span><span class="menu-item-tag">Léger</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category" id="cat-boissons">
+    <div class="menu-item">
+      <div class="menu-item-img">🍹</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Limonade Maison</p>
+        <p class="menu-item-desc">Citron pressé, menthe fraîche, sirop de fleur de sureau</p>
+        <div class="menu-item-footer"><span class="menu-item-price">3,50 €</span><span class="menu-item-tag">Sans alcool</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🍷</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Verre de Vin</p>
+        <p class="menu-item-desc">Sélection de vins italiens : rouge, blanc ou rosé</p>
+        <div class="menu-item-footer"><span class="menu-item-price">4 €</span><span class="menu-item-tag">Sélection</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">☕</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Espresso / Café</p>
+        <p class="menu-item-desc">Grain torréfié artisanal, allongé, noisette ou cappuccino</p>
+        <div class="menu-item-footer"><span class="menu-item-price">2 €</span><span class="menu-item-tag">Torréfié local</span></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-img">🧃</div>
+      <div class="menu-item-body">
+        <p class="menu-item-name">Sodas & Eaux</p>
+        <p class="menu-item-desc">San Pellegrino, Perrier, Coca-Cola, jus de fruits frais</p>
+        <div class="menu-item-footer"><span class="menu-item-price">2,50 €</span><span class="menu-item-tag">Varié</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVENTS ────────────────────────────────────── -->
+<section id="events">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Où nous trouver</span>
+    <h2 class="section-title">Prochains <em>Événements</em></h2>
+    <p class="section-desc">On bouge, vous suivez ! Retrouvez notre planning mis à jour chaque semaine pour ne pas rater Alchimi'Saveurs près de chez vous.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="events-grid reveal">
+    <!-- ✏️ ÉDITER ICI pour mettre à jour les événements -->
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">22</span><span class="event-date-month">Mars</span></div>
+      <div class="event-info">
+        <p class="event-range">Samedi 22 mars — 11h à 21h</p>
+        <p class="event-location">Marché des Capucins, Bordeaux</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Place des Capucins</strong></span>
+          <span class="event-detail">🕐 11h–21h</span>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">25</span><span class="event-date-month">Mars</span></div>
+      <div class="event-info">
+        <p class="event-range">Mardi 25 mars — 12h à 15h</p>
+        <p class="event-location">Campus Victoire, Bordeaux</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Place de la Victoire</strong></span>
+          <span class="event-detail">🕐 12h–15h</span>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">28</span><span class="event-date-month">Mars</span></div>
+      <div class="event-info">
+        <p class="event-range">Vendredi 28 mars — 18h à 23h</p>
+        <p class="event-location">Soirée Privée — La Cité du Vin</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Esplanade de Pontac</strong></span>
+          <span class="event-detail">🔒 Sur réservation</span>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">05</span><span class="event-date-month">Avr.</span></div>
+      <div class="event-info">
+        <p class="event-range">Samedi 5 avril — 10h à 20h</p>
+        <p class="event-location">Fête du Printemps, Mérignac</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Parc des Sports</strong></span>
+          <span class="event-detail">🕐 10h–20h</span>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">12</span><span class="event-date-month">Avr.</span></div>
+      <div class="event-info">
+        <p class="event-range">Samedi 12 avril — 11h à 22h</p>
+        <p class="event-location">Marché du Quai des Marques</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Quai des Marques, Floirac</strong></span>
+          <span class="event-detail">🕐 11h–22h</span>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-date-block"><span class="event-date-day">19</span><span class="event-date-month">Avr.</span></div>
+      <div class="event-info">
+        <p class="event-range">Samedi 19 avril — 12h à 21h</p>
+        <p class="event-location">Festival des Saveurs, Pessac</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <strong>Place G. Clemenceau</strong></span>
+          <span class="event-detail">🕐 12h–21h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────── -->
+<section id="about">
+  <div class="about-img">🍕</div>
+  <div class="about-content">
+    <div class="section-header">
+      <span class="section-eyebrow">Notre histoire</span>
+      <h2 class="section-title">Une <em>alchimie</em><br>sur quatre roues</h2>
+      <div class="divider"></div>
+    </div>
+    <p>Alchimi'Saveurs, c'est l'art de transformer des ingrédients simples en saveurs qui marquent. Née d'une passion pour la cuisine italienne authentique et les produits du terroir, l'aventure a commencé sur les marchés locaux.</p>
+    <p>Nos pâtes fermentent 48 heures, notre four à bois monte à 450°, et chaque recette est pensée pour éveiller les sens. La carte change selon les saisons — parce que les meilleures saveurs sont celles qui respectent leur moment.</p>
+    <div class="about-stats">
+      <div class="stat-block">
+        <p class="stat-number">48h</p>
+        <p class="stat-label">Fermentation pâte</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-number">450°</p>
+        <p class="stat-label">Four à bois</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-number">100%</p>
+        <p class="stat-label">Produits locaux</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-header">
+      <span class="section-eyebrow">Travaillons ensemble</span>
+      <h2 class="section-title">Nous <em>contacter</em></h2>
+      <div class="divider" style="margin-left:0; margin-right:auto;"></div>
+    </div>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <p class="contact-item-label">Téléphone</p>
+          <p class="contact-item-value">+33 6 12 34 56 78</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <p class="contact-item-label">Email</p>
+          <p class="contact-item-value">contact@alchimisaveurs.fr</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <p class="contact-item-label">Zone de déplacement</p>
+          <p class="contact-item-value">Bordeaux Métropole & alentours</p>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.88rem; color:var(--muted); line-height:1.8;">Pour un événement privé, un mariage, une fête d'entreprise — ou simplement pour savoir où on sera la semaine prochaine, écrivez-nous !</p>
+  </div>
+  <!-- Ajouter netlify à la balise form pour activer le formulaire Netlify -->
+  <form class="contact-form" name="contact" netlify onsubmit="return false">
+    <div class="form-row">
+      <div class="form-field"><label>Prénom</label><input type="text" placeholder="Marco"></div>
+      <div class="form-field"><label>Nom</label><input type="text" placeholder="Rossi"></div>
+    </div>
+    <div class="form-field"><label>Email</label><input type="email" placeholder="marco@email.com"></div>
+    <div class="form-field"><label>Message</label><textarea placeholder="Bonjour, je souhaite vous avoir pour mon événement..."></textarea></div>
+    <button class="btn-submit" type="submit">Envoyer le message</button>
+  </form>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">
+      Alchimi'Saveurs
+      <span>Foodtruck artisanal aux saveurs gourmandes</span>
+    </div>
+    <p class="footer-tagline">La <em>gourmandise</em>, c'est notre alchimie !</p>
+    <div class="footer-socials">
+      <a href="#" class="social-btn" aria-label="X / Twitter">𝕏</a>
+      <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+      <a href="#" class="social-btn" aria-label="Facebook">f</a>
+      <a href="#" class="social-btn" aria-label="TikTok">▶</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Alchimi'Saveurs — Tous droits réservés</p>
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">CGV</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Hamburger menu ── */
+const hamburger = document.getElementById('hamburger');
+const navDrawer = document.getElementById('navDrawer');
+
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  navDrawer.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+
+document.querySelectorAll('.drawer-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ── Menu tabs ── */
+document.querySelectorAll('.menu-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.menu-category').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('cat-' + btn.dataset.cat).classList.add('active');
+  });
+});
+
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
