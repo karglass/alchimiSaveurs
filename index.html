@@ -93,15 +93,17 @@ nav {
 .nav-drawer {
   display: none;
   position: fixed; top: var(--nav-h); left: 0; right: 0;
-  background: rgba(42,26,13,0.98);
-  backdrop-filter: blur(10px);
+  background: rgb(42, 26, 13);
   padding: 24px 5vw 32px;
   border-bottom: 2px solid var(--orange);
   z-index: 199;
   transform: translateY(-10px); opacity: 0;
   transition: transform 0.3s, opacity 0.3s;
 }
-.nav-drawer.open { transform: translateY(0); opacity: 1; }
+.nav-drawer.open {
+  display: block;
+  transform: translateY(0); opacity: 1;
+}
 .nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
 .nav-drawer a {
   display: block; padding: 14px 0;
@@ -302,6 +304,7 @@ nav {
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.2s;
   background: var(--white);
+  display: flex; flex-direction: column;
 }
 .menu-item:hover { box-shadow: 0 8px 30px rgba(58,31,13,0.12); transform: translateY(-3px); }
 .menu-item-img {
@@ -309,16 +312,18 @@ nav {
   background: linear-gradient(135deg, var(--cream-dark), var(--cream));
   display: flex; align-items: center; justify-content: center;
   font-size: 3.5rem;
+  flex-shrink: 0;
 }
-.menu-item-body { padding: 16px 18px; }
+.menu-item-body { padding: 16px 18px; display: flex; flex-direction: column; flex: 1; }
 .menu-item-name {
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 5px;
 }
 .menu-item-desc {
   font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 12px;
+  flex: 1;
 }
-.menu-item-footer { display: flex; justify-content: space-between; align-items: center; }
+.menu-item-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
 .menu-item-price {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.35rem; font-weight: 800; color: var(--red);
@@ -380,6 +385,40 @@ nav {
   display: flex; align-items: center; gap: 5px;
 }
 .event-detail strong { color: var(--text); }
+.event-detail a {
+  color: var(--red); font-weight: 700; text-decoration: none;
+  transition: color 0.2s;
+}
+.event-detail a:hover { color: var(--orange); text-decoration: underline; }
+
+/* Événement récurrent */
+.event-card.recurring {
+  background: linear-gradient(135deg, var(--white) 70%, rgba(155,32,32,0.05));
+  border-color: rgba(155,32,32,0.25);
+  grid-column: 1 / -1;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  justify-self: center;
+}
+.event-card.recurring::before {
+  background: linear-gradient(to bottom, var(--gold), var(--orange));
+}
+.event-card.recurring .event-date-block {
+  background: var(--brown);
+  width: 72px; height: 72px;
+}
+.event-card.recurring .event-date-day {
+  font-size: 1.6rem;
+}
+.event-recurring-badge {
+  display: inline-block;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white);
+  background: var(--gold);
+  padding: 2px 8px;
+  margin-bottom: 6px;
+}
 
 /* ─── ABOUT ───────────────────────────────────────── */
 #about {
@@ -520,7 +559,7 @@ footer {
 
 /* ─── REVEAL ANIMATION ────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible { opacity: 1; transform: translateY(0) !important; }
 
 /* ═══════════════════════════════════════════════════
    RESPONSIVE — TABLETTE (≤ 900px)
@@ -894,7 +933,20 @@ footer {
     <div class="divider"></div>
   </div>
   <div class="events-grid reveal">
-    <!-- ✏️ ÉDITER ICI pour mettre à jour les événements -->
+    <!-- ♻️ ÉVÉNEMENT RÉCURRENT — toujours en premier, ne pas supprimer -->
+    <div class="event-card recurring">
+      <div class="event-date-block"><span class="event-date-day">♻</span><span class="event-date-month">Récurrent</span></div>
+      <div class="event-info">
+        <span class="event-recurring-badge">✦ Rendez-vous régulier</span>
+        <p class="event-range">Du mercredi au samedi soir — 19h à 22h</p>
+        <p class="event-location">Parking du Stade — Maîche</p>
+        <div class="event-details">
+          <span class="event-detail">📍 <a href="https://maps.app.goo.gl/TW9KFzy41pFVWsgE7" target="_blank" rel="noopener">Voir sur Google Maps</a></span>
+          <span class="event-detail">🕐 19h–22h</span>
+        </div>
+      </div>
+    </div>
+    <!-- ✏️ ÉDITER ICI pour mettre à jour les événements ponctuels -->
     <div class="event-card">
       <div class="event-date-block"><span class="event-date-day">22</span><span class="event-date-month">Mars</span></div>
       <div class="event-info">
@@ -1012,7 +1064,7 @@ footer {
         <div class="contact-icon">✉️</div>
         <div>
           <p class="contact-item-label">Email</p>
-          <p class="contact-item-value">contact@alchimisaveurs.fr</p>
+          <p class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="21424e4f5540425561404d4249484c48524057445453520f4753">[email&#160;protected]</a></p>
         </div>
       </div>
       <div class="contact-item">
@@ -1062,7 +1114,7 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── Hamburger menu ── */
 const hamburger = document.getElementById('hamburger');
 const navDrawer = document.getElementById('navDrawer');
@@ -1092,10 +1144,23 @@ document.querySelectorAll('.menu-tab').forEach(btn => {
 });
 
 /* ── Scroll reveal ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+// Fallback : éléments déjà visibles au chargement de la page
+setTimeout(() => {
+  revealEls.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight) el.classList.add('visible');
+  });
+}, 80);
 </script>
 </body>
 </html>
